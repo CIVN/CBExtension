@@ -29,6 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.textBox3 = new System.Windows.Forms.TextBox();
@@ -56,8 +57,12 @@
 			this.プリセット4ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.プリセット5ToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
 			this.デバッグ開発者用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.終了 = new System.Windows.Forms.ToolStripMenuItem();
+			this.リセットToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
+			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// textBox1
@@ -218,6 +223,7 @@
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.メニューToolStripMenuItem,
+            this.リセットToolStripMenuItem,
             this.デバッグ開発者用ToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
@@ -279,9 +285,33 @@
 			this.デバッグ開発者用ToolStripMenuItem.Text = "デバッグ（開発者用）";
 			this.デバッグ開発者用ToolStripMenuItem.Click += new System.EventHandler(this.デバッグ開発者用ToolStripMenuItem_Click);
 			// 
-			// timer1
+			// notifyIcon1
 			// 
-			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+			this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+			this.notifyIcon1.Text = "CBExtension";
+			this.notifyIcon1.Visible = true;
+			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.終了});
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.Size = new System.Drawing.Size(99, 26);
+			// 
+			// 終了
+			// 
+			this.終了.Name = "終了";
+			this.終了.Size = new System.Drawing.Size(152, 22);
+			this.終了.Text = "終了";
+			this.終了.Click += new System.EventHandler(this.終了_Click);
+			// 
+			// リセットToolStripMenuItem
+			// 
+			this.リセットToolStripMenuItem.Name = "リセットToolStripMenuItem";
+			this.リセットToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+			this.リセットToolStripMenuItem.Text = "リセット";
+			this.リセットToolStripMenuItem.Click += new System.EventHandler(this.リセットToolStripMenuItem_Click);
 			// 
 			// Form1
 			// 
@@ -314,10 +344,11 @@
 			this.MaximumSize = new System.Drawing.Size(640, 360);
 			this.MinimumSize = new System.Drawing.Size(640, 360);
 			this.Name = "Form1";
-			this.Text = "Form1";
+			this.Text = "CBExtension";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
+			this.contextMenuStrip1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -351,7 +382,10 @@
 		private System.Windows.Forms.ToolStripMenuItem プリセット4ToolStripMenuItem3;
 		private System.Windows.Forms.ToolStripMenuItem プリセット5ToolStripMenuItem4;
 		private System.Windows.Forms.ToolStripMenuItem デバッグ開発者用ToolStripMenuItem;
-		private System.Windows.Forms.Timer timer1;
+		public System.Windows.Forms.NotifyIcon notifyIcon1;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem 終了;
+		private System.Windows.Forms.ToolStripMenuItem リセットToolStripMenuItem;
 	}
 }
 
