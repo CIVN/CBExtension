@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication12
 {
 	public partial class Form1 : Form
 	{
+		//通知表示時間(?)
+		const int time = 1;
+
 		//データ
-		public HotKey[] hotkey;
-		public TextBox[] textbox;
+		public HotKey[] ctrl;
+		public HotKey[] alt;
+		private TextBox[] textbox;
 
 		//選択中のプリセット
 		private int pre = 1;
@@ -33,8 +28,8 @@ namespace WindowsFormsApplication12
 		private string nine;
 
 		//メッセージボックス用
-		private string apply = "適用が完了しました！\n";
-		private string reset = "全ての内容をリセットします。\nよろしいですか？";
+		private string apply = "適用が完了しました!";
+		private string reset = "全ての内容をリセットします。\nよろしいですか?";
 
 		//プリセットに保存するやつ
 		private string[] pre1;
@@ -48,6 +43,60 @@ namespace WindowsFormsApplication12
 			InitializeComponent();
 		}
 
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			//ウィンドウの名前変更
+			Text = "CBExtension (" + pre + ")";
+
+			textbox = new TextBox[] { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9 };
+
+			Pres();
+			Pre1();
+
+			HotKey c1 = new HotKey(MOD_KEY.CONTROL, Keys.D1);
+			HotKey c2 = new HotKey(MOD_KEY.CONTROL, Keys.D2);
+			HotKey c3 = new HotKey(MOD_KEY.CONTROL, Keys.D3);
+			HotKey c4 = new HotKey(MOD_KEY.CONTROL, Keys.D4);
+			HotKey c5 = new HotKey(MOD_KEY.CONTROL, Keys.D5);
+			HotKey c6 = new HotKey(MOD_KEY.CONTROL, Keys.D6);
+			HotKey c7 = new HotKey(MOD_KEY.CONTROL, Keys.D7);
+			HotKey c8 = new HotKey(MOD_KEY.CONTROL, Keys.D8);
+			HotKey c9 = new HotKey(MOD_KEY.CONTROL, Keys.D9);
+
+			HotKey a1 = new HotKey(MOD_KEY.ALT, Keys.D1);
+			HotKey a2 = new HotKey(MOD_KEY.ALT, Keys.D2);
+			HotKey a3 = new HotKey(MOD_KEY.ALT, Keys.D3);
+			HotKey a4 = new HotKey(MOD_KEY.ALT, Keys.D4);
+			HotKey a5 = new HotKey(MOD_KEY.ALT, Keys.D5);
+
+			ctrl = new HotKey[] { c1, c2, c3, c4, c5, c6, c7, c8, c9 };
+			alt = new HotKey[] { a1, a2, a3, a4, a5 };
+
+			ctrl[0].HotKeyPush += new EventHandler(c1_push);
+			ctrl[1].HotKeyPush += new EventHandler(c2_push);
+			ctrl[2].HotKeyPush += new EventHandler(c3_push);
+			ctrl[3].HotKeyPush += new EventHandler(c4_push);
+			ctrl[4].HotKeyPush += new EventHandler(c5_push);
+			ctrl[5].HotKeyPush += new EventHandler(c6_push);
+			ctrl[6].HotKeyPush += new EventHandler(c7_push);
+			ctrl[7].HotKeyPush += new EventHandler(c8_push);
+			ctrl[8].HotKeyPush += new EventHandler(c9_push);
+
+			alt[0].HotKeyPush += new EventHandler(a1_push);
+			alt[1].HotKeyPush += new EventHandler(a2_push);
+			alt[2].HotKeyPush += new EventHandler(a3_push);
+			alt[3].HotKeyPush += new EventHandler(a4_push);
+			alt[4].HotKeyPush += new EventHandler(a5_push);
+		}
+
+		public void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			foreach (HotKey h in ctrl)
+			{
+				h.Dispose();
+			}
+		}
+
 		//コンソールに設定の中身出力
 		private void Debug()
 		{
@@ -55,8 +104,7 @@ namespace WindowsFormsApplication12
 
 			foreach (string p in pre1)
 			{
-				Console.WriteLine("プリセット1-" + i + ": " + p);
-
+				Console.WriteLine("Pre1-" + i + ": " + p);
 				i++;
 			}
 
@@ -64,8 +112,7 @@ namespace WindowsFormsApplication12
 
 			foreach (string p in pre2)
 			{
-				Console.WriteLine("プリセット2-" + i + ": " + p);
-
+				Console.WriteLine("Pre2-" + i + ": " + p);
 				i++;
 			}
 
@@ -73,8 +120,7 @@ namespace WindowsFormsApplication12
 
 			foreach (string p in pre3)
 			{
-				Console.WriteLine("プリセット3-" + i + ": " + p);
-
+				Console.WriteLine("Pre3-" + i + ": " + p);
 				i++;
 			}
 
@@ -82,8 +128,7 @@ namespace WindowsFormsApplication12
 
 			foreach (string p in pre4)
 			{
-				Console.WriteLine("プリセット4-" + i + ": " + p);
-
+				Console.WriteLine("Pre4-" + i + ": " + p);
 				i++;
 			}
 
@@ -91,8 +136,7 @@ namespace WindowsFormsApplication12
 
 			foreach (string p in pre5)
 			{
-				Console.WriteLine("プリセット5-" + i + ": " + p);
-
+				Console.WriteLine("Pre5-" + i + ": " + p);
 				i++;
 			}
 		}
@@ -161,94 +205,14 @@ namespace WindowsFormsApplication12
 			string p58 = Properties.Settings.Default.pre58;
 			string p59 = Properties.Settings.Default.pre59;
 
-			pre1 = new string [9] { p11, p12, p13, p14, p15, p16, p17, p18, p19 };
-			pre2 = new string [9] { p21, p22, p23, p24, p25, p26, p27, p28, p29 };
-			pre3 = new string [9] { p31, p32, p33, p34, p35, p36, p37, p38, p39 };
-			pre4 = new string [9] { p41, p42, p43, p44, p45, p46, p47, p48, p49 };
-			pre5 = new string [9] { p51, p52, p53, p54, p55, p56, p57, p58, p59 };
+			pre1 = new string[9] { p11, p12, p13, p14, p15, p16, p17, p18, p19 };
+			pre2 = new string[9] { p21, p22, p23, p24, p25, p26, p27, p28, p29 };
+			pre3 = new string[9] { p31, p32, p33, p34, p35, p36, p37, p38, p39 };
+			pre4 = new string[9] { p41, p42, p43, p44, p45, p46, p47, p48, p49 };
+			pre5 = new string[9] { p51, p52, p53, p54, p55, p56, p57, p58, p59 };
 		}
 
-		//テキストボックスに反映
-		private void Pre1()
-		{
-			int i = 0;
-
-			foreach (TextBox t in textbox)
-			{
-				t.Text = pre1[i];
-			}
-		}
-
-		private void Pre2()
-		{
-			int i = 0;
-
-			foreach (TextBox t in textbox)
-			{
-				t.Text = pre2[i];
-			}
-		}
-
-		private void Pre3()
-		{
-			int i = 0;
-
-			foreach (TextBox t in textbox)
-			{
-				t.Text = pre3[i];
-			}
-		}
-
-		private void Pre4()
-		{
-			int i = 0;
-
-			foreach (TextBox t in textbox)
-			{
-				t.Text = pre4[i];
-			}
-		}
-
-		private void Pre5()
-		{
-			int i = 0;
-
-			foreach (TextBox t in textbox)
-			{
-				t.Text = pre5[i];
-			}
-		}
-
-		private void Form1_Load(object sender, EventArgs e)
-		{
-			Text = "CBExtension (" + pre + ")";
-
-			textbox = new TextBox[] { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9 };
-
-			Pres();
-			Pre1();
-
-			hotkey[0] = new HotKey(MOD_KEY.CONTROL, Keys.D1);
-			hotkey[1] = new HotKey(MOD_KEY.CONTROL, Keys.D2);
-			hotkey[2] = new HotKey(MOD_KEY.CONTROL, Keys.D3);
-			hotkey[3] = new HotKey(MOD_KEY.CONTROL, Keys.D4);
-			hotkey[4] = new HotKey(MOD_KEY.CONTROL, Keys.D5);
-			hotkey[5] = new HotKey(MOD_KEY.CONTROL, Keys.D6);
-			hotkey[6] = new HotKey(MOD_KEY.CONTROL, Keys.D7);
-			hotkey[7] = new HotKey(MOD_KEY.CONTROL, Keys.D8);
-			hotkey[8] = new HotKey(MOD_KEY.CONTROL, Keys.D9);
-
-			hotkey[0].HotKeyPush += new EventHandler(c1_push);
-			hotkey[1].HotKeyPush += new EventHandler(c2_push);
-			hotkey[2].HotKeyPush += new EventHandler(c3_push);
-			hotkey[3].HotKeyPush += new EventHandler(c4_push);
-			hotkey[4].HotKeyPush += new EventHandler(c5_push);
-			hotkey[5].HotKeyPush += new EventHandler(c6_push);
-			hotkey[6].HotKeyPush += new EventHandler(c7_push);
-			hotkey[7].HotKeyPush += new EventHandler(c8_push);
-			hotkey[8].HotKeyPush += new EventHandler(c9_push);
-		}
-
+		//色々
 		private void PRE()
 		{
 			switch (pre)
@@ -315,14 +279,120 @@ namespace WindowsFormsApplication12
 			}
 		}
 
+		//テキストボックスに反映
+		private void Pre1()
+		{
+			int i = 0;
+
+			foreach (TextBox t in textbox)
+			{
+				t.Text = pre1[i];
+				i++;
+			}
+		}
+
+		private void Pre2()
+		{
+			int i = 0;
+
+			foreach (TextBox t in textbox)
+			{
+				t.Text = pre2[i];
+				i++;
+			}
+		}
+
+		private void Pre3()
+		{
+			int i = 0;
+
+			foreach (TextBox t in textbox)
+			{
+				t.Text = pre3[i];
+				i++;
+			}
+		}
+
+		private void Pre4()
+		{
+			int i = 0;
+
+			foreach (TextBox t in textbox)
+			{
+				t.Text = pre4[i];
+				i++;
+			}
+		}
+
+		private void Pre5()
+		{
+			int i = 0;
+
+			foreach (TextBox t in textbox)
+			{
+				t.Text = pre5[i];
+				i++;
+			}
+		}
+
+		//プリセット変更処理
+		private void pre_change_1()
+		{
+			pre = 1;
+			Text = "CBExtension (" + pre + ")";
+
+			Pre1();
+		}
+
+		private void pre_change_2()
+		{
+			pre = 2;
+			Text = "CBExtension (" + pre + ")";
+
+			Pre2();
+		}
+
+		private void pre_change_3()
+		{
+			pre = 3;
+			Text = "CBExtension (" + pre + ")";
+
+			Pre3();
+		}
+
+		private void pre_change_4()
+		{
+			pre = 4;
+			Text = "CBExtension (" + pre + ")";
+
+			Pre4();
+		}
+
+		private void pre_change_5()
+		{
+			pre = 5;
+			Text = "CBExtension (" + pre + ")";
+
+			Pre5();
+		}
+
+		//キーが押されたときのイベント
 		public void c1_push(object sender, EventArgs e)
 		{
 			PRE();
 
 			Clipboard.SetDataObject(one, true);
 
-			notifyIcon1.BalloonTipText = one;
-			notifyIcon1.ShowBalloonTip(5000);
+			try
+			{
+				notifyIcon1.BalloonTipText = one;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
 		public void c2_push(object sender, EventArgs e)
@@ -331,8 +401,16 @@ namespace WindowsFormsApplication12
 
 			Clipboard.SetDataObject(two, true);
 
-			notifyIcon1.BalloonTipText = two;
-			notifyIcon1.ShowBalloonTip(5000);
+			try
+			{
+				notifyIcon1.BalloonTipText = two;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
 		public void c3_push(object sender, EventArgs e)
@@ -341,8 +419,16 @@ namespace WindowsFormsApplication12
 
 			Clipboard.SetDataObject(three, true);
 
-			notifyIcon1.BalloonTipText = three;
-			notifyIcon1.ShowBalloonTip(5000);
+			try
+			{
+				notifyIcon1.BalloonTipText = three;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
 		public void c4_push(object sender, EventArgs e)
@@ -351,8 +437,16 @@ namespace WindowsFormsApplication12
 
 			Clipboard.SetDataObject(four, true);
 
-			notifyIcon1.BalloonTipText = four;
-			notifyIcon1.ShowBalloonTip(5000);
+			try
+			{
+				notifyIcon1.BalloonTipText = four;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
 		public void c5_push(object sender, EventArgs e)
@@ -361,8 +455,16 @@ namespace WindowsFormsApplication12
 
 			Clipboard.SetDataObject(five, true);
 
-			notifyIcon1.BalloonTipText = five;
-			notifyIcon1.ShowBalloonTip(5000);
+			try
+			{
+				notifyIcon1.BalloonTipText = five;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
 		public void c6_push(object sender, EventArgs e)
@@ -371,8 +473,16 @@ namespace WindowsFormsApplication12
 
 			Clipboard.SetDataObject(six, true);
 
-			notifyIcon1.BalloonTipText = six;
-			notifyIcon1.ShowBalloonTip(5000);
+			try
+			{
+				notifyIcon1.BalloonTipText = six;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
 		public void c7_push(object sender, EventArgs e)
@@ -381,8 +491,16 @@ namespace WindowsFormsApplication12
 
 			Clipboard.SetDataObject(seven, true);
 
-			notifyIcon1.BalloonTipText = seven;
-			notifyIcon1.ShowBalloonTip(5000);
+			try
+			{
+				notifyIcon1.BalloonTipText = seven;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
 		public void c8_push(object sender, EventArgs e)
@@ -391,8 +509,16 @@ namespace WindowsFormsApplication12
 
 			Clipboard.SetDataObject(eight, true);
 
-			notifyIcon1.BalloonTipText = eight;
-			notifyIcon1.ShowBalloonTip(5000);
+			try
+			{
+				notifyIcon1.BalloonTipText = eight;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
 		public void c9_push(object sender, EventArgs e)
@@ -401,58 +527,99 @@ namespace WindowsFormsApplication12
 
 			Clipboard.SetDataObject(nine, true);
 
-			notifyIcon1.BalloonTipText = nine;
-			notifyIcon1.ShowBalloonTip(5000);
-		}
-
-		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			foreach (HotKey h in hotkey)
+			try
 			{
-				h.Dispose();
+				notifyIcon1.BalloonTipText = nine;
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
 			}
 		}
 
-		private void プリセット1ToolStripMenuItem_Click(object sender, EventArgs e)
+		public void a1_push(object sender, EventArgs e)
 		{
-			pre = 1;
-			Text = "CBExtension (" + pre + ")";
+			pre_change_1();
 
-			Pre1();
+			try
+			{
+				notifyIcon1.BalloonTipText = "プリセット1";
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
-		private void プリセット2ToolStripMenuItem1_Click(object sender, EventArgs e)
+		public void a2_push(object sender, EventArgs e)
 		{
-			pre = 2;
-			Text = "CBExtension (" + pre + ")";
+			pre_change_2();
 
-			Pre2();
+			try
+			{
+				notifyIcon1.BalloonTipText = "プリセット2";
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
-		private void プリセット3ToolStripMenuItem2_Click(object sender, EventArgs e)
+		public void a3_push(object sender, EventArgs e)
 		{
-			pre = 3;
-			Text = "CBExtension (" + pre + ")";
+			pre_change_3();
 
-			Pre3();
+			try
+			{
+				notifyIcon1.BalloonTipText = "プリセット3";
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
-		private void プリセット4ToolStripMenuItem3_Click(object sender, EventArgs e)
+		public void a4_push(object sender, EventArgs e)
 		{
-			pre = 4;
-			Text = "CBExtension (" + pre + ")";
+			pre_change_4();
 
-			Pre4();
+			try
+			{
+				notifyIcon1.BalloonTipText = "プリセット4";
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
-		private void プリセット5ToolStripMenuItem4_Click(object sender, EventArgs e)
+		public void a5_push(object sender, EventArgs e)
 		{
-			pre = 5;
-			Text = "CBExtension (" + pre + ")";
+			pre_change_5();
 
-			Pre5();
+			try
+			{
+				notifyIcon1.BalloonTipText = "プリセット5";
+				notifyIcon1.ShowBalloonTip(time);
+			}
+
+			catch
+			{
+				return;
+			}
 		}
 
+		//適用ボタン
 		private void button1_Click(object sender, EventArgs e)
 		{
 			switch (pre)
@@ -543,6 +710,56 @@ namespace WindowsFormsApplication12
 			{
 				Reset();
 			}
+		}
+
+		private void プリセット1ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			pre_change_1();
+		}
+
+		private void プリセット2ToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			pre_change_2();
+		}
+
+		private void プリセット3ToolStripMenuItem2_Click(object sender, EventArgs e)
+		{
+			pre_change_3();
+		}
+
+		private void プリセット4ToolStripMenuItem3_Click(object sender, EventArgs e)
+		{
+			pre_change_4();
+		}
+
+		private void プリセット5ToolStripMenuItem4_Click(object sender, EventArgs e)
+		{
+			pre_change_5();
+		}
+
+		private void プリセット1ToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			pre_change_1();
+		}
+
+		private void プリセット2ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			pre_change_2();
+		}
+
+		private void プリセット3ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			pre_change_3();
+		}
+
+		private void プリセット4ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			pre_change_4();
+		}
+
+		private void プリセット5ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			pre_change_5();
 		}
 	}
 }

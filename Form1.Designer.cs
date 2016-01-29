@@ -51,16 +51,22 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.メニューToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.プリセット1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.プリセット2ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.プリセット3ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.プリセット4ToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.プリセット5ToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+			this.リセットToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.デバッグ開発者用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.終了 = new System.Windows.Forms.ToolStripMenuItem();
-			this.リセットToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.プリセット1ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.プリセット2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.プリセット3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.プリセット4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.プリセット5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -234,6 +240,7 @@
 			// メニューToolStripMenuItem
 			// 
 			this.メニューToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.設定ToolStripMenuItem,
             this.プリセット1ToolStripMenuItem,
             this.プリセット2ToolStripMenuItem1,
             this.プリセット3ToolStripMenuItem2,
@@ -243,40 +250,53 @@
 			this.メニューToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
 			this.メニューToolStripMenuItem.Text = "メニュー";
 			// 
+			// 設定ToolStripMenuItem
+			// 
+			this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
+			this.設定ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.設定ToolStripMenuItem.Text = "設定";
+			// 
 			// プリセット1ToolStripMenuItem
 			// 
 			this.プリセット1ToolStripMenuItem.Name = "プリセット1ToolStripMenuItem";
-			this.プリセット1ToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.プリセット1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.プリセット1ToolStripMenuItem.Text = "プリセット1";
 			this.プリセット1ToolStripMenuItem.Click += new System.EventHandler(this.プリセット1ToolStripMenuItem_Click);
 			// 
 			// プリセット2ToolStripMenuItem1
 			// 
 			this.プリセット2ToolStripMenuItem1.Name = "プリセット2ToolStripMenuItem1";
-			this.プリセット2ToolStripMenuItem1.Size = new System.Drawing.Size(123, 22);
+			this.プリセット2ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
 			this.プリセット2ToolStripMenuItem1.Text = "プリセット2";
 			this.プリセット2ToolStripMenuItem1.Click += new System.EventHandler(this.プリセット2ToolStripMenuItem1_Click);
 			// 
 			// プリセット3ToolStripMenuItem2
 			// 
 			this.プリセット3ToolStripMenuItem2.Name = "プリセット3ToolStripMenuItem2";
-			this.プリセット3ToolStripMenuItem2.Size = new System.Drawing.Size(123, 22);
+			this.プリセット3ToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
 			this.プリセット3ToolStripMenuItem2.Text = "プリセット3";
 			this.プリセット3ToolStripMenuItem2.Click += new System.EventHandler(this.プリセット3ToolStripMenuItem2_Click);
 			// 
 			// プリセット4ToolStripMenuItem3
 			// 
 			this.プリセット4ToolStripMenuItem3.Name = "プリセット4ToolStripMenuItem3";
-			this.プリセット4ToolStripMenuItem3.Size = new System.Drawing.Size(123, 22);
+			this.プリセット4ToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
 			this.プリセット4ToolStripMenuItem3.Text = "プリセット4";
 			this.プリセット4ToolStripMenuItem3.Click += new System.EventHandler(this.プリセット4ToolStripMenuItem3_Click);
 			// 
 			// プリセット5ToolStripMenuItem4
 			// 
 			this.プリセット5ToolStripMenuItem4.Name = "プリセット5ToolStripMenuItem4";
-			this.プリセット5ToolStripMenuItem4.Size = new System.Drawing.Size(123, 22);
+			this.プリセット5ToolStripMenuItem4.Size = new System.Drawing.Size(152, 22);
 			this.プリセット5ToolStripMenuItem4.Text = "プリセット5";
 			this.プリセット5ToolStripMenuItem4.Click += new System.EventHandler(this.プリセット5ToolStripMenuItem4_Click);
+			// 
+			// リセットToolStripMenuItem
+			// 
+			this.リセットToolStripMenuItem.Name = "リセットToolStripMenuItem";
+			this.リセットToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+			this.リセットToolStripMenuItem.Text = "リセット";
+			this.リセットToolStripMenuItem.Click += new System.EventHandler(this.リセットToolStripMenuItem_Click);
 			// 
 			// デバッグ開発者用ToolStripMenuItem
 			// 
@@ -295,9 +315,14 @@
 			// contextMenuStrip1
 			// 
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.終了});
+            this.終了,
+            this.プリセット1ToolStripMenuItem1,
+            this.プリセット2ToolStripMenuItem,
+            this.プリセット3ToolStripMenuItem,
+            this.プリセット4ToolStripMenuItem,
+            this.プリセット5ToolStripMenuItem});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(99, 26);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(153, 158);
 			// 
 			// 終了
 			// 
@@ -306,12 +331,40 @@
 			this.終了.Text = "終了";
 			this.終了.Click += new System.EventHandler(this.終了_Click);
 			// 
-			// リセットToolStripMenuItem
+			// プリセット1ToolStripMenuItem1
 			// 
-			this.リセットToolStripMenuItem.Name = "リセットToolStripMenuItem";
-			this.リセットToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-			this.リセットToolStripMenuItem.Text = "リセット";
-			this.リセットToolStripMenuItem.Click += new System.EventHandler(this.リセットToolStripMenuItem_Click);
+			this.プリセット1ToolStripMenuItem1.Name = "プリセット1ToolStripMenuItem1";
+			this.プリセット1ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.プリセット1ToolStripMenuItem1.Text = "プリセット1";
+			this.プリセット1ToolStripMenuItem1.Click += new System.EventHandler(this.プリセット1ToolStripMenuItem1_Click);
+			// 
+			// プリセット2ToolStripMenuItem
+			// 
+			this.プリセット2ToolStripMenuItem.Name = "プリセット2ToolStripMenuItem";
+			this.プリセット2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.プリセット2ToolStripMenuItem.Text = "プリセット2";
+			this.プリセット2ToolStripMenuItem.Click += new System.EventHandler(this.プリセット2ToolStripMenuItem_Click);
+			// 
+			// プリセット3ToolStripMenuItem
+			// 
+			this.プリセット3ToolStripMenuItem.Name = "プリセット3ToolStripMenuItem";
+			this.プリセット3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.プリセット3ToolStripMenuItem.Text = "プリセット3";
+			this.プリセット3ToolStripMenuItem.Click += new System.EventHandler(this.プリセット3ToolStripMenuItem_Click);
+			// 
+			// プリセット4ToolStripMenuItem
+			// 
+			this.プリセット4ToolStripMenuItem.Name = "プリセット4ToolStripMenuItem";
+			this.プリセット4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.プリセット4ToolStripMenuItem.Text = "プリセット4";
+			this.プリセット4ToolStripMenuItem.Click += new System.EventHandler(this.プリセット4ToolStripMenuItem_Click);
+			// 
+			// プリセット5ToolStripMenuItem
+			// 
+			this.プリセット5ToolStripMenuItem.Name = "プリセット5ToolStripMenuItem";
+			this.プリセット5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.プリセット5ToolStripMenuItem.Text = "プリセット5";
+			this.プリセット5ToolStripMenuItem.Click += new System.EventHandler(this.プリセット5ToolStripMenuItem_Click);
 			// 
 			// Form1
 			// 
@@ -386,6 +439,12 @@
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem 終了;
 		private System.Windows.Forms.ToolStripMenuItem リセットToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem 設定ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem プリセット1ToolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem プリセット2ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem プリセット3ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem プリセット4ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem プリセット5ToolStripMenuItem;
 	}
 }
 
